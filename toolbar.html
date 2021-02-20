@@ -1,0 +1,151 @@
+<style>
+	* {
+		box-sizing: border-box;
+	}
+
+	button {
+		font: revert !important;
+	}
+
+	.readermode-highlight {
+		display: inline;
+		position: relative;
+		cursor: pointer;
+		background-color: #f7ccd7;
+	}
+
+	#readermode_toolbar {
+		display: none;
+		min-width: 189px;
+		min-height: 24px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #12121299;
+		/* -webkit-transition: all .2s; */
+		/* transition: all .2s; */
+		font-size: 12px !important;
+		font-weight: 500;
+		margin: 0;
+		padding: 10px;
+		border-radius: 5px;
+		z-index: 999999999;
+	}
+
+	#readermode_toolbar button {
+		text-decoration: none;
+		color: #333;
+	}
+
+	#readermode_toolbar_update {
+		display: none;
+		min-width: 189px !important;
+		width: 189px !important;
+		min-height: 24px;
+		position: absolute;
+		background-color: #12121299;
+		/* -webkit-transition: all .2s; */
+		/* transition: all .2s; */
+		font-size: 12px !important;
+		font-weight: 500;
+		margin: 0;
+		padding: 10px;
+		border-radius: 5px;
+		z-index: 999999999;
+	}
+
+	#readermode_comment_form {
+		display: none;
+		margin-bottom: 10px;
+	}
+
+	#readermode_comment {
+		width: 100%;
+		padding: 3px 5px;
+	}
+
+	#readermode_highlight_color {
+		display: none;
+		position: relative;
+		margin-right: 5px;
+	}
+
+	.readermode-controls {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#readermode_color_list {
+		display: none;
+		position: absolute;
+		margin-top: 10px;
+		background: #12121299;
+		padding: 3px;
+		left: -3px;
+	}
+
+	.readermode-color {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		margin-bottom: 3px;
+	}
+
+	.readermode-red {
+		background-color: #f7ccd7;
+	}
+
+	.readermode-orange {
+		background-color: #fbdd80;
+	}
+
+	.readermode-yellow {
+		background-color: #fff98b;
+	}
+
+	.readermode-green {
+		background-color: #dbfc79;
+	}
+
+	.readermode-blue {
+		background-color: #c3fdec;
+	}
+</style>
+<div id="readermode_highlight">
+
+	<div id="readermode_toolbar">
+
+		<div class="readermode-controls">
+			<div>
+				<button class="yellow" id="readermode_apply_highlight">Apply</button>
+				<button class="clear" id="readermode_clear_all">Clear All</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="readermode_toolbar_update">
+		<div class="readermode-controls">
+			<div>
+				<button class="yellow" id="readermode_update_highlight">Update</button>
+				<button class="clear" id="readermode_clear">Clear</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="readermode_comment_form">
+		<input id="readermode_comment" placeholder="Comment..." />
+	</div>
+
+	<div id="readermode_highlight_color">
+		<div id="readermode_selected_color">
+			<div class="readermode-color readermode-red"></div>
+		</div>
+		<div id="readermode_color_list">
+			<div class="readermode-color readermode-red"></div>
+			<div class="readermode-color readermode-orange"></div>
+			<div class="readermode-color readermode-yellow"></div>
+			<div class="readermode-color readermode-green"></div>
+			<div class="readermode-color readermode-blue"></div>
+		</div>
+	</div>
+</div>

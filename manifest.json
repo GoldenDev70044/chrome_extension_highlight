@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "name": "Chrome Highlighter",
+  "short_name": "Chrome Highlighter",
+  "homepage_url": "https://readermode.io",
+  "description": "Highlight and annotate",
+  "version": "1.0",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "browser_action": {
+    "default_title": "Chrome Highlighter",
+    "default_popup": "",
+    "default_icon": "images/icon.png"
+  },
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "background": {
+    "scripts": ["js/jquery.js"]
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "chromeos": "Ctrl+Shift+Z",
+        "linux": "Ctrl+Shift+Z",
+        "mac": "Ctrl+Shift+Z",
+        "windows": "Ctrl+Shift+Z"
+      }
+    }
+  },
+  "permissions": [ "tabs", "activeTab", "contextMenus", "http://*/*", "https://*/*", "storage" ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "js/jquery.js",
+        "js/jquery.mark.js",
+        "js/toolbar.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "toolbar.html"
+  ]
+}
