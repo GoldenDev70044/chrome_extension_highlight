@@ -1,2 +1,2 @@
-# Chrome extension highlight
+# Chrome Extension For Highlight
 chrome extension for highlight and comment using mark.js
