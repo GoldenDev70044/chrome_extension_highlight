@@ -7,7 +7,7 @@
   var options = {
     element: 'span',
     className: 'readermode-highlight',
-    exclude: ['script', 'style', 'img', '#readermode_highlight', '#sidebar-sponsors-platinum-right', '#ad'],
+    exclude: ['style', 'img', '#readermode_highlight', '#sidebar-sponsors-platinum-right', '#ad'],
     acrossElements: true,
     caseSensitive: true,
     separateWordSearch: false,
@@ -20,7 +20,6 @@
       node.className = node.className + ` ${range.color}`;
       node.dataset.highlightId = range.id;
       node.onclick = function (e) {
-        console.log(e);
         showUpdateToolbar(e, range.comment, range.color);
         highlightedDomElem = node;
       };
@@ -48,7 +47,9 @@
   };
 
   $(document).ready(function () {
-    init();
+    setTimeout(function(){ 
+      init();
+    }, 50);
   });
 
   $(document)
@@ -259,30 +260,25 @@
   }
 
   function applyHighlight() {
-    var cloneDom = document.body.cloneNode(true);
-
-    options.exclude.forEach(function (elem) {
-      $(document.body).find(elem).remove();
-    });
-
     var preSelectionRange = document.createRange();
-    var start = 0;
-    var end = 0;
 
     preSelectionRange.selectNodeContents(document.body);
+    preSelectionRange.setEnd(selectedRange.startContainer, selectedRange.startOffset);
 
-    if (selectedRange) {
-      preSelectionRange.setEnd(selectedRange.startContainer, selectedRange.startOffset);
-      start = preSelectionRange.toString().length;
-      end = start + selectedRange.toString().length;
-    }
-    document.body = cloneDom;
+    let domFragment = preSelectionRange.cloneContents();
+    
+    options.exclude.forEach(function (elem) {
+      $(domFragment).find(elem).remove();
+    });
+    
+    var start = domFragment.textContent.length;
+    var length = selectedRange.toString().length;
 
     var $commentElem = $('#readermode_comment');
     var comment = $commentElem.val().trim();
-    var selectedColor = $('#readermode_selected_color .readermode-color')[0].classList[1];
+    var color = $('#readermode_selected_color .readermode-color')[0].classList[1];
     var id = new Date().getTime();
-    var highlight = { start, length: end - start, id, comment, color: selectedColor };
+    var highlight = { start, length, id, comment, color };
 
     highlightsArr.push(highlight);
 

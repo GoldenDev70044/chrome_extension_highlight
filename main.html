@@ -1,0 +1,94 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+	    <div id="main">
+	      <div id="main-start" style="display: ;">
+	        <ul id="main-start-menu">
+	          	<li id="ms-bookmark" class="login-needed">
+	            	<span>💾 Save Page</span>
+	          	</li>
+	            <li id="ms-annotate-pdf">
+		            <span>🗒️ Annotate PDF</span>
+		        </li>
+	        </ul>
+
+            <div id="main-start-footer">
+	          <div id="msf-top">
+	            <div id="msf-top-left">
+	              <div class="cr-username" style="display:">johndoe@gmail.com</div>
+	              <a href="https://readermode.io/upgrade" target="_blank" id="msf-top-left-upgrade" class="btn btn-round btn-label-upgrade" style="display: none">
+	                Upgrade
+	              </a>
+
+	              <a href="https://readermode.io/login" target="_blank" id="msf-top-left-login" class="btn btn-round btn-dark btn-login m-t--3 pull-left" style="display: none">
+	                <i class="fas fa-sign-in-alt m-r-2"></i> Login
+	              </a>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+
+	      <div id="main-bookmark" style="padding: 20px;display: none;">
+	        <div id="options-saved-panel" class="options-panel no-print">
+	          <div id="options-saved-panel-header">
+	            <span class="loading-status"></span>
+	          </div>
+	          <div id="options-saved-panel-body">
+	            <div id="osp-basics" class="osp-section m-t-0i">
+	              <div id="osp-basics-left">
+	                <i class="fas fa-link"></i>
+	              </div>
+
+	              <label>Title</label>
+	              <textarea name="cr_title" id="osp-title" class=" cr-title m-t-5i form-control" data-minHeight="20" placeholder="Title" autocomplete="off"></textarea>
+
+	               <br/>
+
+	              <label>Description</label>
+	              <textarea name="excerpt" id="osp-excerpt" class=" cr-excerpt m-t-5i form-control" data-minHeight="16" placeholder="Description..." autocomplete="off"></textarea>
+	            </div>
+
+	            <br/>
+
+	            <label>Tags</label>
+	            <div id="osp-tags" class="osp-section">
+	              <input type="text" name="cr_list" id="osp-tag-list" class="form-field cr-tag-list form-control" placeholder="Add tags..." autocomplete="off" />
+	            </div>
+
+	            <br/>
+
+	            <label>Folders</label>
+	            <div id="osp-folders" class="osp-section m-b-18">
+	              <select class="form-control">
+	                <option value="All articles">All articles</option>
+	                <option value="Research">Research</option>
+	                <option value="News">News</option>
+	              </select>
+	            </div>
+
+	            <br/>
+
+	            <div id="osp-footer" class="osp-section">
+	              <div id="osp-footer-top">
+	                <a href="#/" id="osp-actions-save" class="btn btn-save btn-primary btn-md">
+	                  <i class="fas fa-save"></i> &nbsp;Save
+	                </a>
+
+	                <a href="#/" id="osp-actions-delete" class="btn saved-version-notice remove-saved-article" style="display:none;">
+	                  <i class="fas fa-trash"></i> &nbsp;Delete
+	                </a>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+
+	    <script type="text/javascript" src="js/jquery.js"></script>
+	    <script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
