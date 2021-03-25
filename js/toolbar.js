@@ -1,9 +1,10 @@
-; (function () {
+(function () {
   var highlightsArr = [];
   var highlightedDomElem = null;
   var tabUrl = '';
   var selectedRange = null;
   var isShowedUpdateToolbar = false;
+  var isPdf = false;
   var options = {
     element: 'span',
     className: 'readermode-highlight',
@@ -16,8 +17,10 @@
     iframes: false,
     iframesTimeout: 5000,
     each: function (node, range) {
+      var color = !isPdf ? range.color : range.color + ' pdf';
+      
       node.title = range.comment;
-      node.className = node.className + ` ${range.color}`;
+      node.className = node.className + ` ${color}`;
       node.dataset.highlightId = range.id;
       node.onclick = function (e) {
         showUpdateToolbar(e, range.comment, range.color);
@@ -47,7 +50,7 @@
   };
 
   $(document).ready(function () {
-    setTimeout(function(){ 
+    setTimeout(function () {
       init();
     }, 50);
   });
@@ -125,8 +128,24 @@
         } else {
           tabUrl = window.location.href.toString();
         }
+        isPdf = tabUrl.includes('chrome-extension://geeidlnjjdeolnjlfkcocdpicocfmdmi/pdf/web/viewer.html');
 
-        loadHighlights();
+        if(!isPdf) {
+          loadHighlights();
+          return;
+        }
+
+        // var isLoadedPdf = setInterval(function() {
+        //   if(window.gIsLoadedPdf) {
+        //     loadHighlights();
+        //     clearInterval(isLoadedPdf)
+        //   }
+        // }, 50);
+
+        setTimeout(function() {
+          loadHighlights();
+        }, 1000);
+
       })
       .catch((err) => {
         // alert("Ops..something wrong, please try again: " + err)
@@ -266,11 +285,11 @@
     preSelectionRange.setEnd(selectedRange.startContainer, selectedRange.startOffset);
 
     let domFragment = preSelectionRange.cloneContents();
-    
+
     options.exclude.forEach(function (elem) {
       $(domFragment).find(elem).remove();
     });
-    
+
     var start = domFragment.textContent.length;
     var length = selectedRange.toString().length;
 

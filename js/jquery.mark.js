@@ -845,7 +845,7 @@ var Mark = function () {
       
       this.getTextNodes(function (dict) {
         var originalLength = dict.value.length;
-        
+
         ranges.forEach(function (range, counter) {
           
           var _checkWhitespaceRange = _this8.checkWhitespaceRanges(range, originalLength, dict.value),
