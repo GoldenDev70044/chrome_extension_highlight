@@ -20,8 +20,8 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
-  opacity: 0.2;
   line-height: 1.0;
+  mix-blend-mode: multiply;
 }
 
 .textLayer > span {

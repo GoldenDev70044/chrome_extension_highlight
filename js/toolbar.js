@@ -17,10 +17,8 @@
     iframes: false,
     iframesTimeout: 5000,
     each: function (node, range) {
-      var color = !isPdf ? range.color : range.color + ' pdf';
-      
       node.title = range.comment;
-      node.className = node.className + ` ${color}`;
+      node.className = node.className + ` ${range.color}`;
       node.dataset.highlightId = range.id;
       node.onclick = function (e) {
         showUpdateToolbar(e, range.comment, range.color);
