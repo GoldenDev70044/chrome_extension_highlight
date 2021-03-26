@@ -1197,6 +1197,9 @@ const PDFViewerApplication = {
     });
     pagesPromise.then(() => {
       this._initializeAutoPrint(pdfDocument, openActionPromise);
+      setTimeout(function() {
+        window.gIsLoadedPdf = true;
+      });
     });
     onePageRendered.then(() => {
       pdfDocument.getOutline().then(outline => {

@@ -55,14 +55,6 @@
   background-color: rgba(0, 100, 0, 1);
 }
 
-.textLayer ::-moz-selection {
-  background: rgba(0, 0, 255, 1);
-}
-
-.textLayer ::selection {
-  background: rgba(0, 0, 255, 1);
-}
-
 .textLayer .endOfContent {
   display: block;
   position: absolute;

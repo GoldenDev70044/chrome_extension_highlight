@@ -4,7 +4,6 @@
   var tabUrl = '';
   var selectedRange = null;
   var isShowedUpdateToolbar = false;
-  var isPdf = false;
   var options = {
     element: 'span',
     className: 'readermode-highlight',
@@ -48,9 +47,7 @@
   };
 
   $(document).ready(function () {
-    setTimeout(function () {
-      init();
-    }, 50);
+    init();
   });
 
   $(document)
@@ -126,24 +123,21 @@
         } else {
           tabUrl = window.location.href.toString();
         }
-        isPdf = tabUrl.includes('chrome-extension://geeidlnjjdeolnjlfkcocdpicocfmdmi/pdf/web/viewer.html');
 
+        var isPdf = new RegExp('chrome-extension:.*/pdf/web/viewer.html', 'igm').test(tabUrl)
         if(!isPdf) {
-          loadHighlights();
-          return;
+          setTimeout(function() {
+            loadHighlights();
+            return;
+          }, 1000);
         }
 
-        // var isLoadedPdf = setInterval(function() {
-        //   if(window.gIsLoadedPdf) {
-        //     loadHighlights();
-        //     clearInterval(isLoadedPdf)
-        //   }
-        // }, 50);
-
-        setTimeout(function() {
-          loadHighlights();
-        }, 1000);
-
+        var isLoadedPdf = setInterval(function() {
+          if(window.gIsLoadedPdf) {
+            loadHighlights();
+            clearInterval(isLoadedPdf)
+          }
+        }, 50);
       })
       .catch((err) => {
         // alert("Ops..something wrong, please try again: " + err)
