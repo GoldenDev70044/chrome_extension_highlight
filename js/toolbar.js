@@ -230,15 +230,7 @@
     chrome.storage.local.get(function (storage) {
       if (storage[tabUrl]) {
         highlightsArr = JSON.parse(storage[tabUrl]);
-        var start = new Date().getTime();
-        $(document.body).markRanges(highlightsArr, {
-          ...options,
-          done: function () {
-            var end = new Date().getTime();
-            var time = end - start;
-            console.log('load', time);
-          }
-        });
+        $(document.body).markRanges(highlightsArr, options);
       }
     });
   }
@@ -304,22 +296,13 @@
 
     var start = new Date().getTime();
 
-    // $(document.body).unmark({
-    //   ...options,
-    //   done: function () {
     $(document.body).markRanges([highlight], {
       ...options,
       done: function () {
         saveHighlights();
         $('#readermode_toolbar').hide();
-
-        var end = new Date().getTime();
-        var time = end - start;
-        console.log('apply', time);
       }
     });
-    // }
-    // });
   }
 
   function updateHighlight(e) {
@@ -349,8 +332,10 @@
   function removeAllHighlights() {
     highlightsArr = [];
     saveHighlights();
+    $(`[data-highlight-id]`).removeClass();
+    $(`[data-highlight-id]`).attr('title', '');
+
     $('#readermode_toolbar').hide();
-    $(document.body).unmark(options);
   }
 
   function removeSelectedHighlight() {
@@ -361,15 +346,11 @@
       return parseInt(selectedId) === parseInt(item.id);
     });
 
-    $(highlightedDomElem).unmark({
-      done: function () {
-        $(`[data-highlight-id=${selectedId}]`).removeClass();
-        $(`[data-highlight-id=${selectedId}]`).attr('title', '');
-        $('#readermode_toolbar_update').hide();
-        highlightsArr.splice(highlightIndex, 1);
-        saveHighlights();
-      }
-    });
+    $(`[data-highlight-id=${selectedId}]`).removeClass();
+    $(`[data-highlight-id=${selectedId}]`).attr('title', '');
+    $('#readermode_toolbar_update').hide();
+    highlightsArr.splice(highlightIndex, 1);
+    saveHighlights();
   }
 
   function toggleColorList() {
