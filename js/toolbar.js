@@ -124,18 +124,19 @@
           tabUrl = window.location.href.toString();
         }
 
-        var isPdf = new RegExp('chrome-extension:.*/pdf/web/viewer.html', 'igm').test(tabUrl)
-        if(!isPdf) {
-          setTimeout(function() {
+        var isPdf = new RegExp('chrome-extension:.*/pdf/web/viewer.html', 'igm').test(tabUrl);
+        if (!isPdf) {
+          setTimeout(function () {
             loadHighlights();
             return;
           }, 1000);
+          return;
         }
 
-        var isLoadedPdf = setInterval(function() {
-          if(window.gIsLoadedPdf) {
+        var isLoadedPdf = setInterval(function () {
+          if (window.gIsLoadedPdf) {
             loadHighlights();
-            clearInterval(isLoadedPdf)
+            clearInterval(isLoadedPdf);
           }
         }, 50);
       })
@@ -229,7 +230,15 @@
     chrome.storage.local.get(function (storage) {
       if (storage[tabUrl]) {
         highlightsArr = JSON.parse(storage[tabUrl]);
-        $(document.body).markRanges(highlightsArr, options);
+        var start = new Date().getTime();
+        $(document.body).markRanges(highlightsArr, {
+          ...options,
+          done: function () {
+            var end = new Date().getTime();
+            var time = end - start;
+            console.log('load', time);
+          }
+        });
       }
     });
   }
@@ -293,18 +302,24 @@
 
     highlightsArr.push(highlight);
 
-    $(document.body).unmark({
+    var start = new Date().getTime();
+
+    // $(document.body).unmark({
+    //   ...options,
+    //   done: function () {
+    $(document.body).markRanges([highlight], {
       ...options,
       done: function () {
-        $(document.body).markRanges(highlightsArr, {
-          ...options,
-          done: function () {
-            saveHighlights();
-            $('#readermode_toolbar').hide();
-          }
-        });
+        saveHighlights();
+        $('#readermode_toolbar').hide();
+
+        var end = new Date().getTime();
+        var time = end - start;
+        console.log('apply', time);
       }
     });
+    // }
+    // });
   }
 
   function updateHighlight(e) {
@@ -335,7 +350,7 @@
     highlightsArr = [];
     saveHighlights();
     $('#readermode_toolbar').hide();
-    $('body').unmark(options);
+    $(document.body).unmark(options);
   }
 
   function removeSelectedHighlight() {
